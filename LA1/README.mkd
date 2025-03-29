@@ -1,6 +1,6 @@
 
 # COM3505 Lab Assessment 1
-![Device Overview](./images/overview-devices.png)
+![Device Overview](https://gitlab.com/zliu199/com3505-student-2025/-/blob/main/LA1/images/overview-device.jpg)
 
 ## Table of Contents
 1. [Firmware Installation](#firmware-installation)

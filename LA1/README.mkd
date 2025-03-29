@@ -2,7 +2,10 @@
 # COM3505 Lab Assessment 1
 <img src="./images/overview-device.jpg" alt="Device Overview" width="400" style="margin-left: 20px;" />
 
-[Demo video](https://drive.google.com/file/d/1Bsk2cv5spOzIdacb7aVkuYYSy095Odb6/view?usp=sharing)
+## Video 
+
+[Demo](https://drive.google.com/file/d/1Bsk2cv5spOzIdacb7aVkuYYSy095Odb6/view?usp=sharing)
+
 ## Table of Contents
 1. [Firmware Installation](#firmware-installation)
 2. [WiFi Configuration](#wifi-configuration)

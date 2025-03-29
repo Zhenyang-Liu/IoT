@@ -1,8 +1,110 @@
 
 # COM3505 Lab Assessment 1
+![Device Overview](images/overview-devices.png)
 
-Put your documentation here. 
+## Table of Contents
+1. [Firmware Installation](#firmware-installation)
+2. [WiFi Configuration](#wifi-configuration)
+3. [OTA Firmware Update](#ota-firmware-update)
+4. [LED Indicator Guide](#led-indicator-guide)
+5. [Troubleshooting](#troubleshooting)
 
-Put your code in [PrAndUpThing/PrAndUpThing.ino](PrAndUpThing/PrAndUpThing.ino).
+## Firmware Installation
 
-See [the rubric](rubric.mkd) for more details.
+For first-time use, you need to install the base firmware:
+
+1. Connect the ESP32 to your computer using a USB cable
+2. Press and hold the **BOOT** button on the device
+3. While holding the BOOT button, press the **RESET** button
+4. Release the **RESET** button first
+5. Then release the **BOOT** button
+
+The device is now in bootloader mode, and you can flash the firmware using the appropriate tools.
+
+## WiFi Configuration
+
+### Initial Setup
+
+When the device is not connected to WiFi, the **red LED** near the ESP32 will continuously blink, indicating WiFi configuration is needed:
+
+1. Use your phone or computer to connect to the WiFi hotspot created by the device, named "**Thing-xxxxxxxxx**" 
+2. Open a web browser and navigate to **192.168.4.1** to access the device management page
+![Management Page](images/management-page.png)
+3. Click on the "**wifi access point**" link on the page
+4. The device will automatically scan for available WiFi networks and display them as a list
+![Wifi List](images/wifi-list.png)
+5. Select your desired WiFi network and enter the password
+6. Click the "**Connect**" button to begin the connection process
+
+### Connection Results
+
+- **Successful Connection**: The page will redirect to a success page displaying the connected WiFi name and assigned IP address. The **green LED** on the device will remain solid.
+![Successful Connection Page](images/connection-success.png)
+- **Connection Failure**: The page will show a connection failure message. Please verify your password is correct or try connecting again.
+![Connection Failure Page](images/connection-failure.png)
+
+### Changing WiFi Network
+
+To connect to a different WiFi network:
+1. Return to the device management page
+2. Click on the "**wifi access point**" link
+3. Select a new WiFi network and enter the password
+4. Click the "**Connect**" button to connect
+
+### Automatic Reconnection
+
+The device saves successfully connected WiFi credentials. When the device restarts or after a firmware update, it will automatically attempt to reconnect to the saved WiFi network without requiring reconfiguration.
+
+## OTA Firmware Update
+
+The device supports Over-The-Air (OTA) firmware updates. Follow these steps:
+
+### Preparing the Update Server
+
+1. **Important**: Make sure your computer and the ESP32 device are connected to the same WiFi network
+2. Navigate to the **PrAndUpThing\firmware_server** folder
+3. Start an HTTP static file server from this location:
+   ```
+   python -m http.server 8000
+   ```
+   This would start a HTTP Server on Your Device on Port 8000
+4. Use the `ipconfig` command to find your computer's IPv4 address (look under "Wireless LAN adapter WLAN" for IPv4 address)
+5. Update the `FIRMWARE_SERVER_IP_ADDR` value in the **OTAManager.h** file to your computer's IP address
+6. Ensure the **PrAndUpThing\firmware_server** folder contains the update firmware file named "**2.bin**"
+
+### Triggering the Update
+
+1. After preparation is complete, touch or pinch the wire pin connected to the ESP32 (touch sensor pin)
+2. Hold for 3 seconds - when touch is detected, the **red LED** will light up
+3. When the **yellow LED** turns on, the device has recognized the touch command and is preparing to update
+4. The **LEDs** will start blinking, indicating the firmware is downloading and updating
+5. After the update completes, the device will automatically restart and connect to the previously saved WiFi network
+
+## LED Indicator Guide
+
+The meaning of the LED indicators on the device:
+
+- **Red LED near ESP32**:
+  - Blinking: Device not configured with WiFi
+  - Solid: Touch sensor activated
+
+- **Red LED away from ESP32**:
+  - Solid: Touch sensor activated
+
+- **Green LED**:
+  - Solid: WiFi successfully connected
+
+- **Yellow LED**:
+  - Solid: Preparing for firmware update
+  
+## Troubleshooting
+
+**Q: What should I do if the device can't connect to WiFi?**  
+A: Verify that the WiFi password is correct and that your network supports the 2.4GHz band. If the issue persists, press the "Reset WiFi Settings" button on management page to reset the WiFi configuration and try again.
+
+**Q: What should I do if the firmware update fails?**  
+A: Ensure your computer and the ESP32 device are on the same network, and check that the server IP address in OTAManager.h is correctly set. Also verify that the firmware_server folder contains the correctly named firmware file.
+
+**Q: How can I check the current firmware version?**  
+A: The current firmware version is displayed on the device management page (192.168.4.1) home page or on the "status" page.
+![Status Page](images/status.png)

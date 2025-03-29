@@ -29,7 +29,7 @@ When the device is not connected to WiFi, the **red LED** near the ESP32 will co
 
 1. Use your phone or computer to connect to the WiFi hotspot created by the device, named "**Thing-xxxxxxxxx**" 
 2. Open a web browser and navigate to **192.168.4.1** to access the device management page
-![Management Page](LA1/images/management-page.png)
+![Management Page](LA1/images/management-page.jpg)
 3. Click on the "**wifi access point**" link on the page
 4. The device will automatically scan for available WiFi networks and display them as a list
 ![Wifi List](LA1/images/wifi-list.png)

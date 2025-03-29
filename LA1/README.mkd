@@ -111,3 +111,4 @@ A: Ensure your computer and the ESP32 device are on the same network, and check 
 **Q: How can I check the current firmware version?**  
 A: The current firmware version is displayed on the device management page (192.168.4.1) home page or on the "status" page.
 <img src="LA1/images/status.jpg" alt="Status Page" width="200" />
+

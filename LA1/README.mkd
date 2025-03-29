@@ -1,6 +1,6 @@
 
 # COM3505 Lab Assessment 1
-<img src="LA1/images/overview-devices.jpg" alt="Device Overview" width="300" />
+<img src="./images/overview-device.jpg" alt="Device Overview" width="300" />
 
 ## Table of Contents
 1. [Firmware Installation](#firmware-installation)

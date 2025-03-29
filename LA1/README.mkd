@@ -33,7 +33,7 @@ When the device is not connected to WiFi, the **red LED** near the ESP32 will co
 
 3. Click on the "**wifi access point**" link on the page
 4. The device will automatically scan for available WiFi networks and display them as a list
-<img src="LA1/images/wifi-list.jpg" alt="Wifi List" width="300" />
+<img src="LA1/images/wifi-list.jpg" alt="Wifi List" width="200" />
 
 5. Select your desired WiFi network and enter the password
 6. Click the "**Connect**" button to begin the connection process

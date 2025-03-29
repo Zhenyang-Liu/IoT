@@ -1,6 +1,6 @@
 
 # COM3505 Lab Assessment 1
-![Device Overview](LA1/images/overview-devices.png)
+![Device Overview](./images/overview-devices.png)
 
 ## Table of Contents
 1. [Firmware Installation](#firmware-installation)

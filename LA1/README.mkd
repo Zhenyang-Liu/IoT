@@ -1,6 +1,6 @@
 
 # COM3505 Lab Assessment 1
-![Device Overview](images/overview-devices.png)
+![Device Overview](LA/images/overview-devices.png)
 
 ## Table of Contents
 1. [Firmware Installation](#firmware-installation)
@@ -29,19 +29,19 @@ When the device is not connected to WiFi, the **red LED** near the ESP32 will co
 
 1. Use your phone or computer to connect to the WiFi hotspot created by the device, named "**Thing-xxxxxxxxx**" 
 2. Open a web browser and navigate to **192.168.4.1** to access the device management page
-![Management Page](images/management-page.png)
+![Management Page](LA/images/management-page.png)
 3. Click on the "**wifi access point**" link on the page
 4. The device will automatically scan for available WiFi networks and display them as a list
-![Wifi List](images/wifi-list.png)
+![Wifi List](LA/images/wifi-list.png)
 5. Select your desired WiFi network and enter the password
 6. Click the "**Connect**" button to begin the connection process
 
 ### Connection Results
 
 - **Successful Connection**: The page will redirect to a success page displaying the connected WiFi name and assigned IP address. The **green LED** on the device will remain solid.
-![Successful Connection Page](images/connection-success.png)
+![Successful Connection Page](LA/images/connection-success.png)
 - **Connection Failure**: The page will show a connection failure message. Please verify your password is correct or try connecting again.
-![Connection Failure Page](images/connection-failure.png)
+![Connection Failure Page](LA/images/connection-failure.png)
 
 ### Changing WiFi Network
 
@@ -107,4 +107,4 @@ A: Ensure your computer and the ESP32 device are on the same network, and check 
 
 **Q: How can I check the current firmware version?**  
 A: The current firmware version is displayed on the device management page (192.168.4.1) home page or on the "status" page.
-![Status Page](images/status.png)
+![Status Page](LA/images/status.png)

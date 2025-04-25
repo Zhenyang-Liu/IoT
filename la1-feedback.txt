@@ -1,0 +1,43 @@
+
+Hello Zhenyang Liu!
+
+My records state that you're in a pair.
+Your pair partner is jjiang52@sheffield.ac.uk
+(If this is incorrect please get in touch!)
+
+We've reviewed your COM3505 assessment 1 from
+https://gitlab.com/zliu199/com3505-student-2025
+
+Congratulations, you've passed!
+
+As you know, we don't provide marks for this part of the course
+assessment, but if we _were_ doing so, we would estimate your work to
+be somewhere in the 2nd quartile.
+
+That's good work, well done!
+
+Some feedback: Your IoT device project for the ESP32 effectively
+demonstrates the network provisioning and over-the-air (OTA) update
+processes. The documentation is well-organized, offering clear,
+step-by-step instructions that facilitate ease of use in setting up
+and operating the device. The incorporation of a touch sensor to
+initiate firmware updates introduces a functional feature that
+enhances interactivity.
+Technically, your code manages the different operational states of the
+device, such as initialization, WiFi connection, and OTA updates,
+well. The use of enums to define these states (`STATE_INIT`,
+`STATE_PROVISIONING`, etc.) aids in clarifying the process flow and
+making it manageable. Including LED indicators to provide visual
+feedback for different states effectively utilizes hardware to enhance
+the user experience.
+Your implementation of the touch sensor functionality and its detailed
+explanation in the documentation aligns with the rubric requirement
+for optional touch-based event management. However, the code's
+complexity could be mitigated by encapsulating functionalities into
+functions or classes, which would simplify management and potentially
+decrease the likelihood of bugs.
+Overall, the project meets the rubric's major requirements
+effectively. To further improve your project, you might consider
+implementing error handling for WiFi and OTA processes to better
+manage and recover from failures, enhancing the device's robustness
+and reliability in various real-world usage scenarios.

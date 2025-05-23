@@ -41,11 +41,11 @@ static const char *TAG = "robot_motion";
 // Ultrasonic sensor pin definitions
 #define ULTRASONIC_TRIGGER_PIN 9  
 #define ULTRASONIC_ECHO_PIN    12  
-#define OBSTACLE_THRESHOLD_CM  10 
+#define OBSTACLE_THRESHOLD_CM  8 
 
 static bool robot_is_moving = false;
 // Obstacle detection parameters
-#define DEFAULT_OBSTACLE_THRESHOLD_CM 10.0f
+#define DEFAULT_OBSTACLE_THRESHOLD_CM 8.0f
 #define OBSTACLE_CHECK_INTERVAL_MS 200
 
 // Walk Around feature parameters

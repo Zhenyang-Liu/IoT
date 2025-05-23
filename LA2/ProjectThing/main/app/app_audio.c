@@ -360,10 +360,10 @@ void sr_handler_task(void *pvParam)
                         bool handled = true;  
                         switch (item ? item->cmd_id : -1) {
                             case SR_CMD_MOVE_FORWARD:  
-                                robot_move_forward_timed(1800);  
+                                robot_move_forward_timed(3000);  
                                 break;
                             case SR_CMD_MOVE_BACKWARD: 
-                                robot_move_backward_timed(1800); 
+                                robot_move_backward_timed(3000); 
                                 break;
                             case SR_CMD_TURN_LEFT:     
                                 // Use timed left turn, approximately 1 second for 90 degrees

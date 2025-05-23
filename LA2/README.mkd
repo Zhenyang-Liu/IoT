@@ -28,59 +28,78 @@ This project highlights several key IoT features:
 * **Practical IoT application:** As a smart electronic pet, the robot can entertain, accompany, and assist users. It also serves as an educational and demonstration platform for integrating robotics, sensor data, and AI in the IoT domain.
 * **Scalability and extensibility:** The modular design allows for easy integration of additional sensors or new AI capabilities, making it a versatile base for further research or development in smart home, assistive robotics.
 
-graph TD
-    subgraph Main Controller
-        ESP32S3(ESP32-S3-BOX-3B)
-    end
+## Design
 
-    subgraph Motor Platform
-        MotorDriver(TB6612 Motor Driver)
-        Motors(4 × N20 Geared Motors)
-    end
+### 2.1 System Architecture Diagram
 
-    ESP32S3 -- "UART/GPIO" --> MotorDriver
-    MotorDriver -- "PWM/Power" --> Motors
+The overall hardware structure of the intelligent voice-controlled robot pet is shown below:
 
-    ESP32S3 -- "I2C/SPI" --> Screen[Touch Screen (on ESP32-S3-BOX-3B)]
-    ESP32S3 -- "Digital Input" --> Ultrasonic[HC-SR04 Ultrasonic Sensor]
-    ESP32S3 -- "Digital Input" --> Infrared[TCRT5000 Infrared Sensor]
-    ESP32S3 -- "Digital Input" --> Button[BOOT/RESET Buttons]
-    ESP32S3 -- "I2C" --> DHT11[DHT11 Temp/Humidity Sensor]
-    ESP32S3 -- "Audio In/Out" --> MicSpeaker[Microphone & Speaker]
+![System Hardware Architecture]<img src="LA2\images\HardwareArchitectureDiagram.png" alt="Hardware Architecture Diagram" width="200" />
+*Figure: System hardware block diagram*
 
-    Battery[12V 2550mAh Li-ion Battery] -- "Power" --> MotorDriver
-    Battery -- "Power" --> ESP32S3
+> *Note: The diagram illustrates the interconnections between the ESP32-S3-BOX-3B main controller, motor drive platform, sensors, audio I/O, and power system. 
 
-    classDef sensor fill:#e0f7fa,stroke:#26a69a;
-    classDef io fill:#f1f8e9,stroke:#8bc34a;
-    classDef power fill:#fff3e0,stroke:#ffb300;
+---
 
-    class Ultrasonic,Infrared,DHT11 sensor;
-    class ESP32S3,Screen,Button,MicSpeaker io;
-    class Battery,power;
-### Key Features
-- **Voice Control**: Natural language processing with wake word detection, utilizing the ESP-SR Multinet (MN) speech recognition model for accurate command recognition
-- **AI Integration**: ChatGPT integration for conversational AI responses
-- **Safety Systems**: Cliff detection and obstacle avoidance
-- **Environmental Monitoring**: Temperature and humidity sensing
-- **Real-time Audio**: Text-to-speech and speech-to-text capabilities
+### 2.2 Functional Modules Description
 
-### Hardware Components
-- **ESP32-S3-BOX-3B**  
-  Main controller for AI processing, audio input/output, and peripheral communication  
-- **4-wheel drive platform**  
-  Driven by N20 geared motors for robust and flexible movement  
-- **TB6612 4-channel motor driver module**  
-  Controls the four N20 motors efficiently  
-- **1 × HC-SR04 ultrasonic sensor**  
-  For obstacle detection and distance measurement  
-- **1 × TCRT5000 infrared sensor**  
-  For cliff (drop-off) detection  
-- **1 × DHT11 temperature and humidity sensor**  
-  For environmental data acquisition  
-- **1 × 12V 2550mAh lithium battery**  
-  Provides reliable power for the entire robot platform  
+* **Voice Recognition Module**
+  Utilizes WakeNet for wake word detection (“Hi ESP”) and MultiNet for offline voice command recognition. This enables fast response to core robot control commands without requiring Internet connectivity.
 
+* **AI Conversation Module**
+  For open-ended, natural language queries, user speech is sent to the cloud-based OpenAI GPT API. This enables the robot to engage in human-like conversations, answer questions, and provide information, going beyond simple preset commands.
+
+* **Motor Control and Mobility**
+  The robot uses a TB6612 motor driver and four N20 geared motors to achieve differential drive and omnidirectional movement. This allows for smooth navigation, exploration, and user-guided actions.
+
+* **Obstacle Avoidance and Cliff Detection**
+  An HC-SR04 ultrasonic sensor detects obstacles, while a TCRT5000 infrared sensor prevents the robot from falling off edges. Both operate continuously, ensuring safety in all movement modes (including autonomous walk/explore).
+
+* **Environmental Monitoring**
+  A DHT11 sensor measures ambient temperature and humidity, allowing the robot to report environmental data to the user upon request.
+
+* **Audio Interaction**
+  The integrated microphone and speaker (from ESP32-S3-BOX-3B) support both voice command input and audio feedback (speech synthesis), creating a natural and interactive user experience.
+
+---
+
+### 2.3 Hardware Selection Rationale
+
+* **ESP32-S3-BOX-3B**
+  Chosen for its rich audio processing capabilities, built-in microphone and speaker, support for WiFi connectivity, and compatibility with ESP-SR (speech recognition) and ESP-IDF. It offers a balance of processing power and cost for IoT robotics.
+
+* **N20 Geared Motors + TB6612 Driver**
+  N20 motors provide precise, low-speed torque suitable for small robots. The TB6612 motor driver allows for compact, reliable control of four motors simultaneously, supporting smooth movement and exploration.
+
+* **HC-SR04 Ultrasonic Sensor**
+  Selected for its accuracy and ease of integration for obstacle detection, enabling reliable avoidance of objects in the robot’s path.
+
+* **TCRT5000 Infrared Sensor**
+  Compact and responsive, ideal for cliff/edge detection to prevent the robot from accidental drops.
+
+* **DHT11 Temperature and Humidity Sensor**
+  Simple and sufficient for basic environmental monitoring in educational and demonstration settings.
+
+* **12V 2550mAh Li-ion Battery**
+  Provides ample power for motors and control board, ensuring long operation time.
+
+---
+
+### 2.4 Design Challenges and Solutions
+
+* **Limited Embedded Resources**
+  The ESP32-S3 has limited memory and compute compared to a desktop processor. We address this by running lightweight speech models (WakeNet/MultiNet) locally, and offloading heavy natural language processing to the cloud via WiFi.
+
+* **Real-Time Performance and Safety**
+  To guarantee safety, critical functions such as obstacle avoidance and cliff detection are handled entirely locally and operate with real-time constraints, ensuring immediate response even if cloud connectivity is unavailable.
+
+* **User Experience**
+  A hybrid local/cloud approach is used: basic commands are processed instantly on-device, while complex conversational input leverages the GPT API for rich dialogue. This provides both speed and depth of interaction.
+
+* **System Reliability**
+  The robot is designed to operate safely under all conditions—if network is down, basic safety and motion functions continue to operate. The modular structure simplifies future upgrades, such as adding new sensors or AI features.
+
+---
 
 ## Firmware Installation
 

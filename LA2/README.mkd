@@ -18,6 +18,46 @@
 
 This project is based on the ESP-BOX ChatGPT_demo example from [here](https://github.com/espressif/esp-box/tree/master/examples/chatgpt_demo), enhanced with comprehensive robotics capabilities. The system integrates voice recognition, motor control, environmental awareness, and multiple safety sensors to create an intelligent interactive electronic pet. It supports natural voice conversations, allowing users to talk with the robot in real time. In addition, the system features automatic obstacle avoidance, enabling the pet to safely navigate complex environments without manual intervention.
 
+### Rationale & IoT Relevance
+We chose to develop an intelligent voice-controlled robot pet because it perfectly showcases the core capabilities and the practical impact of Internet of Things (IoT) technology. In recent years, there has been a growing demand for smart, interactive devices that can seamlessly integrate with our daily lives and environments. By combining multiple sensors, real-time voice recognition, conversational AI, and autonomous navigation, this project demonstrates how IoT devices can provide not only automation but also natural human-robot interaction and enhanced safety.
+
+This project highlights several key IoT features:
+
+* **Multi-sensor fusion:** Integrating ultrasonic, infrared, and environmental sensors enables the robot to perceive and adapt to its surroundings, ensuring reliable obstacle avoidance and cliff protection.
+* **Hybrid intelligence:** The system combines local voice recognition (using the ESP-SR Multinet model for wake word and command detection) with advanced conversational capabilities provided by cloud-based GPT. This hybrid approach ensures fast response for basic commands while enabling rich, natural language dialogue through powerful cloud AI.
+* **Practical IoT application:** As a smart electronic pet, the robot can entertain, accompany, and assist users. It also serves as an educational and demonstration platform for integrating robotics, sensor data, and AI in the IoT domain.
+* **Scalability and extensibility:** The modular design allows for easy integration of additional sensors or new AI capabilities, making it a versatile base for further research or development in smart home, assistive robotics.
+
+graph TD
+    subgraph Main Controller
+        ESP32S3(ESP32-S3-BOX-3B)
+    end
+
+    subgraph Motor Platform
+        MotorDriver(TB6612 Motor Driver)
+        Motors(4 × N20 Geared Motors)
+    end
+
+    ESP32S3 -- "UART/GPIO" --> MotorDriver
+    MotorDriver -- "PWM/Power" --> Motors
+
+    ESP32S3 -- "I2C/SPI" --> Screen[Touch Screen (on ESP32-S3-BOX-3B)]
+    ESP32S3 -- "Digital Input" --> Ultrasonic[HC-SR04 Ultrasonic Sensor]
+    ESP32S3 -- "Digital Input" --> Infrared[TCRT5000 Infrared Sensor]
+    ESP32S3 -- "Digital Input" --> Button[BOOT/RESET Buttons]
+    ESP32S3 -- "I2C" --> DHT11[DHT11 Temp/Humidity Sensor]
+    ESP32S3 -- "Audio In/Out" --> MicSpeaker[Microphone & Speaker]
+
+    Battery[12V 2550mAh Li-ion Battery] -- "Power" --> MotorDriver
+    Battery -- "Power" --> ESP32S3
+
+    classDef sensor fill:#e0f7fa,stroke:#26a69a;
+    classDef io fill:#f1f8e9,stroke:#8bc34a;
+    classDef power fill:#fff3e0,stroke:#ffb300;
+
+    class Ultrasonic,Infrared,DHT11 sensor;
+    class ESP32S3,Screen,Button,MicSpeaker io;
+    class Battery,power;
 ### Key Features
 - **Voice Control**: Natural language processing with wake word detection, utilizing the ESP-SR Multinet (MN) speech recognition model for accurate command recognition
 - **AI Integration**: ChatGPT integration for conversational AI responses

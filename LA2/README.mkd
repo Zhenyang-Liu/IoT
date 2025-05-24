@@ -33,7 +33,7 @@ This project highlights several key IoT features:
 ### 2.1 System Architecture Diagram
 
 The overall hardware structure of the intelligent voice-controlled robot pet is shown below:
-<img src="LA2\images\HardwareArchitectureDiagram.png" alt="Hardware Architecture Diagram" width="200" />
+<img src="LA2/images/HardwareArchitectureDiagram.png" alt="Hardware Architecture Diagram" width="200" />
 ![System Hardware Architecture]
 *Figure: System hardware block diagram*
 

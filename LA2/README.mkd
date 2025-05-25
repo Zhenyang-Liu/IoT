@@ -1,5 +1,5 @@
 
-# EspBotX (Voice-Controlled Robot) Project
+# EspBotX (Voice-Controlled Robot)
 | Front | Right | Top |
 |:----:|:----:|:----:|
 |![image of EspBotX-front](LA2/images/bot-front.JPG) | ![image of EspBotX-right](LA2/images/bot-right.JPG) | ![image of EspBotX-top](LA2/images/bot-top.JPG) |
@@ -102,6 +102,101 @@ The overall hardware structure of the intelligent voice-controlled robot pet is 
   The robot is designed to operate safely under all conditions—if network is down, basic safety and motion functions continue to operate. The modular structure simplifies future upgrades, such as adding new sensors or AI features.
 
 ---
+
+
+## 3. Hardware Components
+
+### 3.1 Component List
+
+| Component                   | Model/Type                | Purpose                                  |
+| --------------------------- | ------------------------- | ---------------------------------------- |
+| Main Controller             | ESP32-S3-BOX-3B           | Central processing, voice/AI, IO control |
+| Motor Driver                | TB6612 D24A               | Controls four N20 DC geared motors       |
+| DC Geared Motors            | N20 (x4)                  | Robot movement (4-wheel drive)           |
+| Ultrasonic Sensor           | HC-SR04 (2020 version)    | Obstacle detection (front/side)          |
+| Infrared Sensor             | TCRT5000                  | Cliff/edge detection (downward)          |
+| Environmental Sensor        | DHT11                     | Temperature and humidity monitoring      |
+| Li-ion Battery              | 12V 2550mAh               | System power supply                      |
+| Touchscreen, Mic, Speaker   | Onboard (ESP32-S3-BOX-3B) | User interaction (display, voice IO)     |
+| BOOT/RESET Buttons          | Onboard                   | Device control (bootloader, reset)       |
+| Power Regulation Module     | 5V/3.3V LDO               | Powers sensors and logic circuits        |
+| Connectors, Jumpers, Wiring | -                         | Internal connections                     |
+
+---
+
+### 3.2 Connection Details
+
+* **Motor System:**
+  The ESP32-S3-BOX-3B connects to the TB6612 motor driver via GPIO pins, which in turn drives four N20 DC geared motors. Motor power is supplied from the 12V Li-ion battery. The schematic shows all A/B control lines and encoder connections if present.
+
+* **Obstacle and Cliff Sensors:**
+
+  * **HC-SR04 Ultrasonic Sensor**: Connected to ESP32 GPIO pins (Trig and Echo), used for obstacle avoidance.
+  * **TCRT5000 Infrared Sensor**: Connected to digital input pins of ESP32, providing real-time cliff/edge detection to prevent falling.
+
+* **Environmental Sensing:**
+
+  * **DHT11 sensor** is connected to GPIO pins for temperature and humidity data collection, reported to the user via the interface.
+
+* **Audio & Display:**
+
+  * The onboard microphone and speaker of ESP32-S3-BOX-3B handle voice command input/output. The built-in touch display can be used for information feedback or status indicators.
+
+* **Power System:**
+
+  * The 12V 2550mAh lithium battery is the main power source, supplying motors and the controller via regulated power lines (5V/3.3V LDO conversion will be in Motor Driver D24A for logic and sensors).
+
+* **Buttons:**
+
+  * Onboard BOOT/RESET buttons for entering bootloader mode and resetting the device during programming or troubleshooting.
+
+---
+
+### 3.4 Role of Each Hardware Module
+
+* **ESP32-S3-BOX-3B:**
+  The brain of the robot; responsible for sensor data processing, motor control, local speech recognition, and cloud AI connectivity. Handles all high-level logic and user interaction.
+
+* **TB6612 Motor Driver & N20 Motors:**
+  Executes motion commands; enables differential drive and complex movement patterns for the robot (forward, backward, turning, exploration, etc.).
+
+* **HC-SR04 Ultrasonic Sensor:**
+  Provides real-time obstacle detection to ensure safe navigation and automatic stopping if an object is too close.
+
+* **TCRT5000 Infrared Sensor:**
+  Detects the absence of ground (“cliff”), automatically stopping the robot and preventing accidental falls.
+
+* **DHT11 Sensor:**
+  Reports environmental temperature and humidity, adding an IoT element for smart sensing and context awareness.
+
+* **12V 2550mAh Li-ion Battery:**
+  Ensures the robot can operate for an extended period with sufficient power for all motors and logic circuits.
+
+* **Power Regulation Module:**
+  Steps down voltage as needed for sensors, logic, and controller, ensuring stable operation.
+
+* **Mic/Speaker/Touchscreen:**
+  Enables multi-modal user interaction through voice commands, spoken responses, and touch-based control or status display.
+
+---
+
+### 3.5 Hardware Schematics and Pin Mapping
+
+#### Pin Mapping Table (for reference):
+
+| Function        | ESP32-S3-BOX-3B Pin | Device/Module  |
+| --------------- | ------------------- | -------------- |
+| Motor PWM A/B   | GPIOXX              | TB6612 IN1/IN2 |
+| Ultrasonic Trig | GPIOXX              | HC-SR04 TRIG   |
+| Ultrasonic Echo | GPIOXX              | HC-SR04 ECHO   |
+| IR Cliff Sensor | GPIOXX              | TCRT5000 DO    |
+| DHT11 Data      | GPIOXX              | DHT11          |
+| ...             | ...                 | ...            |
+
+
+
+---
+
 
 ## Firmware Installation
 

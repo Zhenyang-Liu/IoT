@@ -34,7 +34,7 @@ This project highlights several key IoT features:
 
 The overall hardware structure of the intelligent voice-controlled robot pet is shown below:
 <img src="LA2/images/HardwareArchitectureDiagram.png" alt="Hardware Architecture Diagram" width="200" />
-![System Hardware Architecture]
+![System Hardware Architecture](LA2/images/HardwareArchitectureDiagram.png)
 *Figure: System hardware block diagram*
 
 > *Note: The diagram illustrates the interconnections between the ESP32-S3-BOX-3B main controller, motor drive platform, sensors, audio I/O, and power system. 

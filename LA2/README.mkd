@@ -1,6 +1,6 @@
 
 # EspBotX (Voice-Controlled Robot) Project
-| 图一 | 图二 | 图三 |
+| Front | Right | Top |
 |:----:|:----:|:----:|
 |![image of EspBotX-front](LA2/images/bot-front.JPG) | ![image of EspBotX-right](LA2/images/bot-right.JPG) | ![image of EspBotX-top](LA2/images/bot-top.JPG) |
 

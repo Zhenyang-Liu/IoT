@@ -9,7 +9,6 @@
 
 ## Table of Contents
 1. [Project Overview](#project-overview)
-2. [Troubleshooting](#troubleshooting)
 2. [Firmware Installation](#firmware-installation)
 3. [Initial Configuration](#initial-configuration)
 4. [Using the Robot](#using-the-robot)
@@ -71,40 +70,17 @@ The overall hardware structure of the intelligent voice-controlled robot pet is 
 * **ESP32-S3-BOX-3B**
   Chosen for its rich audio processing capabilities, built-in microphone and speaker, support for WiFi connectivity, and compatibility with ESP-SR (speech recognition) and ESP-IDF. It offers a balance of processing power and cost for IoT robotics.
 
-* **TB6612 Driver**
-  The TB6612 motor driver allows for compact, reliable control of four motors simultaneously, supporting smooth movement and exploration.
-<img src="LA2/images/tb6612" alt="tb6612 image" width="200" />
-
-* **N20 Geared Motors based platform**
-  N20 motors provide precise, low-speed torque suitable for small robots. 
-<img src="LA2/images/Motors.jpg" alt="move platform image" width="200" />
+* **N20 Geared Motors + TB6612 Driver**
+  N20 motors provide precise, low-speed torque suitable for small robots. The TB6612 motor driver allows for compact, reliable control of four motors simultaneously, supporting smooth movement and exploration.
 
 * **HC-SR04 Ultrasonic Sensor**
   Selected for its accuracy and ease of integration for obstacle detection, enabling reliable avoidance of objects in the robot’s path.
 
-- **Range**: 2cm to 400cm
-- **Accuracy**: ±3mm
-- **Update Rate**: 5Hz during motion
-- **Threshold**: 5cm default (configurable)
-<img src="LA2/images/SR-04.png" alt="SR-04 image" width="200" />
-
 * **TCRT5000 Infrared Sensor**
   Compact and responsive, ideal for cliff/edge detection to prevent the robot from accidental drops.
 
-- **Type**: Infrared proximity sensor
-- **Detection**: Surface reflection measurement
-- **Response Time**: <50ms
-- **Debounce**: 3-sample confirmation to prevent false triggers
-<img src="LA2/images/TCRT5000.png" alt="TCRT5000 image" width="200" />
-
 * **DHT11 Temperature and Humidity Sensor**
   Simple and sufficient for basic environmental monitoring in educational and demonstration settings.
-
-- **Temperature Range**: 0-50°C (±2°C accuracy)
-- **Humidity Range**: 20-90% RH (±5% accuracy)
-- **Update Rate**: On-demand via voice command
-- **Protocol**: Single-wire digital interface
-<img src="LA2/images/DHT11.png" alt="DHT11 image" width="200" />
 
 * **12V 2550mAh Li-ion Battery**
   Provides ample power for motors and control board, ensuring long operation time.
@@ -210,22 +186,14 @@ The overall hardware structure of the intelligent voice-controlled robot pet is 
 
 | Function        | ESP32-S3-BOX-3B Pin | Device/Module  |
 | --------------- | ------------------- | -------------- |
-| Motor PWM A     | GPIO10              | TB6612 D24A    |
-| Motor IN1 A     | GPIO14              | TB6612 D24A    |
-| Motor IN2 A     | GPIO11              | TB6612 D24A    |
-| Motor PWM B     | GPIO41              | TB6612 D24A    |
-| Motor IN1 B     | GPIO44              | TB6612 D24A    |
-| Motor IN2 B     | GPIO43              | TB6612 D24A    |
-| Motor PWM C     | GPIO21              | TB6612 D24A    |
-| Motor IN1 C     | GPIO42              | TB6612 D24A    |
-| Motor IN2 C     | GPIO19              | TB6612 D24A    |
-| Motor PWM D     | GPIO38              | TB6612 D24A    |
-| Motor IN1 D     | GPIO20              | TB6612 D24A    |
-| Motor IN2 D     | GPIO39              | TB6612 D24A    |
-| Ultrasonic Trig | GPIO09              | HC-SR04 TRIG   |
-| Ultrasonic Echo | GPIO12              | HC-SR04 ECHO   |
-| IR Cliff Sensor | GPIO40              | TCRT5000 DO    |
-| DHT11 Data      | GPIO13              | DHT11          |
+| Motor PWM A/D   | GPIOXX              | TB6612 IN1/IN2 |
+| Ultrasonic Trig | GPIOXX              | HC-SR04 TRIG   |
+| Ultrasonic Echo | GPIOXX              | HC-SR04 ECHO   |
+| IR Cliff Sensor | GPIOXX              | TCRT5000 DO    |
+| DHT11 Data      | GPIOXX              | DHT11          |
+| ...             | ...                 | ...            |
+
+
 
 ---
 
@@ -263,6 +231,8 @@ The overall hardware structure of the intelligent voice-controlled robot pet is 
 **(A) Voice Command Processing Flow**
 
 ![Voice Command Processing Flow](LA2/images/VoiceInteractionFlow.png)
+
+
 
 **(B) Obstacle Avoidance Logic**
 
@@ -386,7 +356,7 @@ The robot uses a DHT11 digital sensor to measure ambient temperature and humidit
 ```
 ---
 
-### 4.4 Coding Style & Maintainability
+### 4.3 Coding Style & Maintainability
 
 * All functions use descriptive names (e.g., `handle_voice_input()`, `move_forward_safely()`).
 * Code is **modularized**: each function/module has a single responsibility.
@@ -397,237 +367,6 @@ The robot uses a DHT11 digital sensor to measure ambient temperature and humidit
 * All hardware accesses wrapped in abstraction layers, easy for unit testing and hardware change.
 
 ---
-
-## 5. Firmware Installation
-
-### 5.1 Prerequisites
-- ESP-IDF V5.1.6 development environment, Installation instructions can be found [here.](https://docs.espressif.com/projects/esp-idf/en/v5.1.6/esp32s3/get-started/index.html)
-- ESP32-S3-BOX-3B hardware
-- USB cable for initial programming
-
-### 5.2 Installation Steps
-1. **Clone the Github repository**
-   ```bash
-   git clone https://github.com/espressif/esp-box
-   ```
-2. **Change the working directory to `factory_nvs`**
-
-   ```bash
-   cd LA2/ProjectThing/factory_nvs
-   ```
-
-3. **Hardware Selection**
-
-   To select the appropriate hardware (`ESP32-S3-BOX-3B`), access the HMI Board Config using the following command:
-
-   ```bash
-   idf.py menuconfig
-   ```
-
-   * In the menu, select your board model (ESP32-S3-BOX-3B).
-
-4. **Build the `factory_nvs` 
-
-   ```bash
-   idf.py build
-   ```
-
-5. **Change the working directory to `ProjectThing`**
-
-   ```bash
-   cd ..
-   ```
-
-6. **Hardware Selection**
-
-   To select the appropriate hardware (`ESP32-S3-BOX-3B`), access the HMI Board Config using the following command:
-
-   ```bash
-   idf.py menuconfig
-   ```
-
-7. **Build the `ProjectThing` 
-
-   ```bash
-   idf.py build
-   ```
-
-8. Connect the ESP32-S3-BOX-3B to your computer via USB
-
-9. Put the device in bootloader mode:
-   - Press and hold the **BOOT** button
-   - While holding BOOT, press the **RESET** button
-   - Release **RESET** first, then **BOOT**
-
-5. Flash the firmware using ESP-IDF:
-   ```bash
-   idf.py -p COM[Your_Port] flash
-   ```
-
-### 5.3 Initial Configuration
-
-#### Step 1: Setup Configuration File
-
-When you first power on the device, setup instructions will be displayed on the screen:
-
-1. **Connect ESP-Box to PC:**  
-   Use a USB cable to connect the device to your computer.
-
-2. **Open "ESP-Box" Folder:**  
-   The device will appear as a mass storage device.
-
-3. **Edit "CONFIG.INI" File:**  
-   Open this file and configure the following parameters:
-   - **WiFi SSID:** Your wireless network name
-   - **WiFi Password:** Your network password
-   - **OpenAI API Key:** Your API key from [OpenAI](https://platform.openai.com)
-
-4. **Save the File:**  
-   Ensure all changes are saved.
-
-5. **Restart the Device:**  
-   Click the "Restart" button on the screen or power cycle the device.
-
----
-
-#### Step 2: Verify Connection
-
-After restarting, the device will attempt to connect using your configured settings:
-
-- **WiFi Connection:** The device will display the connection status.
-- **API Verification:** The first voice command will test OpenAI integration.
-- **Ready State:** The device enters sleep mode when fully configured.
-
-### 5.4 Using the Robot
-
-#### Basic Operation Steps
-The device provides clear usage instructions on the display:
-
-1. **Wake up the device using "Hi ESP"**: Speak the wake word clearly.
-2. **Ask a question within 10 seconds**: Give your voice command promptly.
-3. **Wait for a reply**: The robot will process and respond.
-4. **Sleep mode interaction**: Click the screen to wake up the device when in sleep mode.
-
----
-
-## 6. Usage Examples
-
-### Example 1: Making the Robot Move Forward
-
-1. **Wake the Robot**: Say "Hi ESP" clearly.
-   - Device responds with a beep and shows "Listening..."
-
-2. **Give Motion Command**: Say "move forward".
-   - Robot will check for obstacles and cliff hazards.
-   - If safe, robot moves forward at controlled speed.
-   - Safety sensors remain active during movement.
-
-3. **Stop When Needed**: Say "Hi ESP" then "stop".
-   - Robot immediately halts all motion.
-   - Safety systems reset for next command.
-
-**Expected Behavior:**
-- Robot moves forward smoothly for 30cm with all motors engaged.
-- Automatically stops if obstacle detected within 8cm.
-- Automatically stops if cliff sensor detects edge.
----
-
-### Example 2: Walk Around / Explore Mode
-
-1. **Wake the Robot**: Say "Hi ESP".
-   * Device responds with a beep and shows "Listening..."
-
-2. **Start Walk Around Mode**: Say "walk around".
-   * Robot enters random roaming mode.
-   * Moves in various directions, exploring its environment.
-   * Automatically avoids obstacles and edges using onboard safety sensors.
-
-3. **Stop the Robot**: Say "Hi ESP" then "stop".
-   * Robot immediately halts all motion.
-   * Returns to standby, awaiting next command.
-
-**Expected Behavior:**
-* Robot moves in random directions while exploring.
-* Obstacle avoidance and cliff protection always enabled.
-* Robot stops immediately upon receiving "stop" command.
-
----
-### Example 3: Getting Environmental Information
-
-1. **Wake the Robot**: Say "Hi ESP".
-   - Listen for confirmation beep.
-
-2. **Request Environment Data**: Say "environment report".
-   - Robot reads temperature and humidity sensors.
-   - Processes data and prepares response.
-
-3. **Receive Report**: The reading will be displayed on screen.
-   - Example: "Current temperature is 29 degrees, and humidity is 20 percent."
-
-**Expected Response Format:**
-- Temperature reported in Celsius degrees.
-- Humidity reported as percentage.
-- Real-time sensor readings.
-
----
-
-### Example 4: Natural Conversation
-
-1. **Wake the Robot**: Say "Hi ESP".
-2. **Ask Any Question**: Say something like "What does the IOT entail?".
-   - Robot processes through ChatGPT.
-   - Provides intelligent conversational response.
-   - Text appears on screen while audio plays.
-
----
-
-### Voice Commands
-
-#### Wake Word
-- **Activation**: Say "**Hi ESP**" to wake up the robot
-- **Response**: Device will play a wake-up sound and start listening
-
-#### Motion Commands
-- "**move forward**" - Robot moves forward
-- "**move backward**" - Robot moves backward
-- "**turn left**" - Robot turns left
-- "**turn right**" - Robot turns right  
-- "**spin around**" - Robot spins in place
-- "**stop**" - Immediately stops all motion
-- "**walk around**" - Robot walks around
-
-#### Information Commands
-- "**environment report**" - Reports current temperature and humidity
-- General questions are processed through ChatGPT for natural conversation
-
-#### Command Processing
-1. **Wake Word Detection**: System activates on wake word
-2. **Voice Capture**: Records your command
-3. **Speech-to-Text**: Converts audio to text using OpenAI
-4. **Command Execution**: Executes robot commands or processes through ChatGPT
-5. **Response**: Provides audio feedback through text-to-speech
-
-## Safety Features
-
-### Cliff Detection
-- **Sensor Location**: Infrared sensor mounted at the center of the chassis
-- **Function**: Prevents robot from falling off edges
-- **Behavior**: Automatically stops robot when cliff is detected
-- **Status**: Active only when the robot is in motion
-
-### Obstacle Detection  
-- **Sensor**: HC-SR04 ultrasonic sensor at the center of the front.
-- **Range**: Detects obstacles within 5cm by default
-- **Frequency**: Checks every 200ms during operation
-- **Behavior**: Stops robot automatically when obstacle detected
-- **Coverage**: Active during forward motion
-
-### Safety Override
-- **Manual Stop**: Voice command "stop" immediately halts all motion
-- **Automatic Resume**: Safety systems re-enable after stop command
-- **Fail-Safe**: All safety systems remain active during autonomous operation
-
-
 
 ## 7. Testing
 
@@ -695,7 +434,257 @@ In addition to observing whether the robot’s behavior matched expectations, we
 
 ---
 
-## 8. Troubleshooting
+## Firmware Installation
+
+### Prerequisites
+- ESP-IDF V5.1.6 development environment, Installation instructions can be found [here.](https://docs.espressif.com/projects/esp-idf/en/v5.1.6/esp32s3/get-started/index.html)
+- ESP32-S3-BOX-3B hardware
+- USB cable for initial programming
+
+### Installation Steps
+1. **Clone the Github repository**
+   ```bash
+   git clone https://github.com/espressif/esp-box
+   ```
+2. **Change the working directory to `factory_nvs`**
+
+   ```bash
+   cd LA2/ProjectThing/factory_nvs
+   ```
+
+3. **Hardware Selection**
+
+   To select the appropriate hardware (`ESP32-S3-BOX-3B`), access the HMI Board Config using the following command:
+
+   ```bash
+   idf.py menuconfig
+   ```
+
+   * In the menu, select your board model (ESP32-S3-BOX-3B).
+
+4. **Build the `factory_nvs` 
+
+   ```bash
+   idf.py build
+   ```
+
+5. **Change the working directory to `ProjectThing`**
+
+   ```bash
+   cd ..
+   ```
+
+6. **Hardware Selection**
+
+   To select the appropriate hardware (`ESP32-S3-BOX-3B`), access the HMI Board Config using the following command:
+
+   ```bash
+   idf.py menuconfig
+   ```
+
+7. **Build the `ProjectThing` 
+
+   ```bash
+   idf.py build
+   ```
+
+8. Connect the ESP32-S3-BOX-3B to your computer via USB
+
+9. Put the device in bootloader mode:
+   - Press and hold the **BOOT** button
+   - While holding BOOT, press the **RESET** button
+   - Release **RESET** first, then **BOOT**
+
+5. Flash the firmware using ESP-IDF:
+   ```bash
+   idf.py -p COM[Your_Port] flash
+   ```
+
+## Initial Configuration
+
+### Step 1: Setup Configuration File
+
+When you first power on the device, setup instructions will be displayed on the screen:
+
+1. **Connect ESP-Box to PC:**  
+   Use a USB cable to connect the device to your computer.
+
+2. **Open "ESP-Box" Folder:**  
+   The device will appear as a mass storage device.
+
+3. **Edit "CONFIG.INI" File:**  
+   Open this file and configure the following parameters:
+   - **WiFi SSID:** Your wireless network name
+   - **WiFi Password:** Your network password
+   - **OpenAI API Key:** Your API key from [OpenAI](https://platform.openai.com)
+
+4. **Save the File:**  
+   Ensure all changes are saved.
+
+5. **Restart the Device:**  
+   Click the "Restart" button on the screen or power cycle the device.
+
+---
+
+### Step 2: Verify Connection
+
+After restarting, the device will attempt to connect using your configured settings:
+
+- **WiFi Connection:** The device will display the connection status.
+- **API Verification:** The first voice command will test OpenAI integration.
+- **Ready State:** The device enters sleep mode when fully configured.
+
+## Using the Robot
+
+### Basic Operation Steps
+The device provides clear usage instructions on the display:
+
+1. **Wake up the device using "Hi ESP"**: Speak the wake word clearly.
+2. **Ask a question within 10 seconds**: Give your voice command promptly.
+3. **Wait for a reply**: The robot will process and respond.
+4. **Sleep mode interaction**: Click the screen to wake up the device when in sleep mode.
+
+---
+
+### Usage Examples
+
+#### Example 1: Making the Robot Move Forward
+
+1. **Wake the Robot**: Say "Hi ESP" clearly.
+   - Device responds with a beep and shows "Listening..."
+
+2. **Give Motion Command**: Say "move forward".
+   - Robot will check for obstacles and cliff hazards.
+   - If safe, robot moves forward at controlled speed.
+   - Safety sensors remain active during movement.
+
+3. **Stop When Needed**: Say "Hi ESP" then "stop".
+   - Robot immediately halts all motion.
+   - Safety systems reset for next command.
+
+**Expected Behavior:**
+- Robot moves forward smoothly for 30cm with all motors engaged.
+- Automatically stops if obstacle detected within 8cm.
+- Automatically stops if cliff sensor detects edge.
+---
+
+#### Example 4: Walk Around / Explore Mode
+
+1. **Wake the Robot**: Say "Hi ESP".
+   * Device responds with a beep and shows "Listening..."
+
+2. **Start Walk Around Mode**: Say "walk around".
+   * Robot enters random roaming mode.
+   * Moves in various directions, exploring its environment.
+   * Automatically avoids obstacles and edges using onboard safety sensors.
+
+3. **Stop the Robot**: Say "Hi ESP" then "stop".
+   * Robot immediately halts all motion.
+   * Returns to standby, awaiting next command.
+
+**Expected Behavior:**
+* Robot moves in random directions while exploring.
+* Obstacle avoidance and cliff protection always enabled.
+* Robot stops immediately upon receiving "stop" command.
+
+---
+#### Example 3: Getting Environmental Information
+
+1. **Wake the Robot**: Say "Hi ESP".
+   - Listen for confirmation beep.
+
+2. **Request Environment Data**: Say "environment report".
+   - Robot reads temperature and humidity sensors.
+   - Processes data and prepares response.
+
+3. **Receive Report**: The reading will be displayed on screen.
+   - Example: "Current temperature is 29 degrees, and humidity is 20 percent."
+
+**Expected Response Format:**
+- Temperature reported in Celsius degrees.
+- Humidity reported as percentage.
+- Real-time sensor readings.
+
+---
+
+#### Example 4: Natural Conversation
+
+1. **Wake the Robot**: Say "Hi ESP".
+2. **Ask Any Question**: Say something like "What does the IOT entail?".
+   - Robot processes through ChatGPT.
+   - Provides intelligent conversational response.
+   - Text appears on screen while audio plays.
+
+---
+
+## Voice Commands
+
+### Wake Word
+- **Activation**: Say "**Hi ESP**" to wake up the robot
+- **Response**: Device will play a wake-up sound and start listening
+
+### Motion Commands
+- "**move forward**" - Robot moves forward
+- "**move backward**" - Robot moves backward
+- "**turn left**" - Robot turns left
+- "**turn right**" - Robot turns right  
+- "**spin around**" - Robot spins in place
+- "**stop**" - Immediately stops all motion
+- "**walk around**" - Robot walks around
+
+### Information Commands
+- "**environment report**" - Reports current temperature and humidity
+- General questions are processed through ChatGPT for natural conversation
+
+### Command Processing
+1. **Wake Word Detection**: System activates on wake word
+2. **Voice Capture**: Records your command
+3. **Speech-to-Text**: Converts audio to text using OpenAI
+4. **Command Execution**: Executes robot commands or processes through ChatGPT
+5. **Response**: Provides audio feedback through text-to-speech
+
+## Safety Features
+
+### Cliff Detection
+- **Sensor Location**: Infrared sensor mounted at the center of the chassis
+- **Function**: Prevents robot from falling off edges
+- **Behavior**: Automatically stops robot when cliff is detected
+- **Status**: Active only when the robot is in motion
+
+### Obstacle Detection  
+- **Sensor**: HC-SR04 ultrasonic sensor at the center of the front.
+- **Range**: Detects obstacles within 5cm by default
+- **Frequency**: Checks every 200ms during operation
+- **Behavior**: Stops robot automatically when obstacle detected
+- **Coverage**: Active during forward motion
+
+### Safety Override
+- **Manual Stop**: Voice command "stop" immediately halts all motion
+- **Automatic Resume**: Safety systems re-enable after stop command
+- **Fail-Safe**: All safety systems remain active during autonomous operation
+
+## Sensor Information
+
+### Ultrasonic Sensor (HC-SR04)
+- **Purpose**: Obstacle detection
+- **Range**: 2cm to 400cm
+- **Accuracy**: ±3mm
+- **Update Rate**: 5Hz during motion
+- **Threshold**: 5cm default (configurable)
+
+### Cliff Sensor （TCRT5000）
+- **Type**: Infrared proximity sensor
+- **Detection**: Surface reflection measurement
+- **Response Time**: <50ms
+- **Debounce**: 3-sample confirmation to prevent false triggers
+
+### Temperature/Humidity Sensor (DHT11)
+- **Temperature Range**: 0-50°C (±2°C accuracy)
+- **Humidity Range**: 20-90% RH (±5% accuracy)
+- **Update Rate**: On-demand via voice command
+- **Protocol**: Single-wire digital interface
+
+## Troubleshooting
 
 ### **Q: Robot doesn't respond to voice commands**
 **A:** 

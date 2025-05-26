@@ -30,11 +30,11 @@
     3. [Initial Configuration](#53-initial-configuration)
     4. [Using the Robot](#54-using-the-robot)
 6. [Usage Examples](#6-usage-examples)
-7. [Testing](#9-testing)
-    1. [Test Approach](#91-test-approach)
-    2. [Results](#92-results)
-    3. [Hardware Influence](#93-hardware-influence)
-8. [Troubleshooting](#10-troubleshooting)
+7. [Testing](#7-testing)
+    1. [Test Approach](#71-test-approach)
+    2. [Results](#72-results)
+    3. [Hardware Influence](#73-hardware-influence)
+8. [Troubleshooting](#8-troubleshooting)
 
 ## Project Overview
 
@@ -254,27 +254,36 @@ The overall hardware structure of the intelligent voice-controlled robot pet is 
 ```plaintext
 /project-root/
 ├── main/
-│   ├── app_main.c           # Main application logic, entry point
-│   ├── motor_control.c/h    # Motor driver abstraction and movement control
-│   ├── voice_module.c/h     # Wake word, command recognition, voice I/O
-│   ├── ai_module.c/h        # GPT API requests and response handling
-│   ├── sensor_module.c/h    # Obstacle, cliff, and environment sensors
-│   ├── utils.c/h            # Utility functions, configuration, error handling
-│   └── ...
+│   └── app/
+        ├── app_audio.c/h         # Audio processing module
+        ├── app_sr.c/h            # Speech recognition module
+        ├── app_sr_cmds.c/h       # Voice command processing
+        ├── app_ui_ctrl.c/h       # UI control module
+        ├── app_ui_events.c       # UI event handling
+        ├── app_wifi.c/h          # WiFi connection management
+        ├── robot_motion.c/h      # Robot motion control
+        ├── cliff_sensor.c/h      # Cliff sensor
+        ├── temp_humi_sensor.c/h  # Temperature & humidity sensor
+        └── ultrasonic_sensor.c/h # Ultrasonic sensor      
 ├── components/              # Third-party or custom reusable modules
 ├── sdkconfig                # ESP-IDF config file
 ├── Makefile / CMakeLists.txt
 └── README.mkd
 ```
 
-* **main/app\_main.c**: Initializes hardware, runs main control loop, dispatches events.
-* **main/motor\_control.c**: Provides movement primitives (forward, backward, stop, turn) and integrates with safety logic.
-* **main/voice\_module.c**: Handles voice activation (WakeNet), local command recognition (MultiNet), audio I/O.
-* **main/ai\_module.c**: Communicates with OpenAI API, processes natural language input, formats response.
-* **main/sensor\_module.c**: Reads and filters data from ultrasonic, infrared, and DHT11 sensors, triggers events on hazard.
-* **main/utils.c**: Common helper routines, logging, error reporting, timing.
+* **app_audio.c/h**: Audio input/output processing, audio stream management and control.
+* **app_sr.c/h**: Core speech recognition functionality, including wake word and command recognition.
+* **app_sr_cmds.c/h**: Voice command definitions and processing logic.
+* **app_ui_ctrl.c/h**: User interface control logic, handling display and interactions.
+* **app_ui_events.c**: UI event handling system.
+* **app_wifi.c/h**: WiFi network connection, configuration and management.
+* **robot_motion.c/h**: Robot motion control, including basic movements like forward, backward, and turning.
+* **cliff_sensor.c/h**: Cliff sensor data collection and processing.
+* **temp_humi_sensor.c/h**: Temperature and humidity sensor data collection and environmental monitoring.
+* **ultrasonic_sensor.c/h**: Ultrasonic sensor distance measurement and obstacle detection.
 
 ---
+
 
 ### 4.2 Key Algorithm & Function Flow
 

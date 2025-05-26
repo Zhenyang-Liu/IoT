@@ -73,7 +73,7 @@ The overall hardware structure of the intelligent voice-controlled robot pet is 
 
 * **TB6612 Driver**
   The TB6612 motor driver allows for compact, reliable control of four motors simultaneously, supporting smooth movement and exploration.
-<img src="LA2/images/tb6612" alt="tb6612 image" width="200" />
+<img src="LA2/images/tb6612.jpg" alt="tb6612 image" width="200" />
 
 * **N20 Geared Motors based platform**
   N20 motors provide precise, low-speed torque suitable for small robots. 
@@ -95,7 +95,7 @@ The overall hardware structure of the intelligent voice-controlled robot pet is 
 - **Detection**: Surface reflection measurement
 - **Response Time**: <50ms
 - **Debounce**: 3-sample confirmation to prevent false triggers
-<img src="LA2/images/TCRT5000.png" alt="TCRT5000 image" width="200" />
+<img src="LA2/images/TCRT5000.jpg" alt="TCRT5000 image" width="200" />
 
 * **DHT11 Temperature and Humidity Sensor**
   Simple and sufficient for basic environmental monitoring in educational and demonstration settings.

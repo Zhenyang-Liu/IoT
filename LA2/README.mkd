@@ -30,13 +30,11 @@
     3. [Initial Configuration](#53-initial-configuration)
     4. [Using the Robot](#54-using-the-robot)
 6. [Usage Examples](#6-usage-examples)
-7. [Voice Commands](#7-voice-commands)
-8. [Safety Features](#8-safety-features)
-9. [Testing](#9-testing)
+7. [Testing](#9-testing)
     1. [Test Approach](#91-test-approach)
     2. [Results](#92-results)
     3. [Hardware Influence](#93-hardware-influence)
-10. [Troubleshooting](#10-troubleshooting)
+8. [Troubleshooting](#10-troubleshooting)
 
 ## Project Overview
 

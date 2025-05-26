@@ -194,7 +194,7 @@ The overall hardware structure of the intelligent voice-controlled robot pet is 
 
 ---
 
-### 3.4 Role of Each Hardware Module
+### 3.3 Role of Each Hardware Module
 
 * **ESP32-S3-BOX-3B:**
   The brain of the robot; responsible for sensor data processing, motor control, local speech recognition, and cloud AI connectivity. Handles all high-level logic and user interaction.
@@ -222,7 +222,7 @@ The overall hardware structure of the intelligent voice-controlled robot pet is 
 
 ---
 
-### 3.5 Hardware Schematics and Pin Mapping
+### 3.4 Hardware Schematics and Pin Mapping
 
 #### Pin Mapping Table (for reference):
 
@@ -771,3 +771,48 @@ In addition to observing whether the robot’s behavior matched expectations, we
 - Check DHT11 connections on GPIO 13
 - Ensure sensor timing requirements are met
 - Try power cycling the device
+
+## 9. Self Assessment
+
+### Project Review
+
+This project successfully demonstrated the integration of IoT hardware, real-time voice control, and cloud-based AI services in a functional and interactive robot pet. We achieved reliable obstacle avoidance and cliff detection, smooth movement control, and engaging voice-based interactions with users. The robot performed well in both manual and autonomous (explore) modes, meeting our main design objectives.
+
+**Strengths:**
+
+* Well-structured hardware and software architecture allowed for clear division of responsibilities and easy debugging.
+* The safety system for obstacle and cliff detection was robust and reliable in various testing environments.
+* Voice command processing was responsive, and the integration of cloud-based GPT added flexibility and fun to user interaction.
+
+**Areas for Improvement:**
+
+* The robot’s voice recognition accuracy could be further improved in noisy or open environments.
+* Battery endurance is a limiting factor during extended use; future upgrades could consider energy-efficient components or larger batteries.
+* The platform could benefit from support for additional sensor types (e.g., light, sound, or camera modules) and more customizable behaviors.
+
+### Teamwork & Personal Growth
+
+As a two-person team, we divided our tasks based on our strengths:
+
+| Task                                   | Contributor |
+| -------------------------------------- | ----------- |
+| Hardware assembly and circuit design   | Both        |
+| Sensor integration and testing         | Both        |
+| Motor driver and movement control      | Jiawei Jiang  |
+| Speech recognition and GPT integration | Zhenyang Liu  |
+| Documentation and presentation         | Both        |
+| System testing and troubleshooting     | Both        |
+
+Throughout the project, close collaboration and regular communication were crucial. We supported each other in debugging and shared ideas for optimization and new features. This teamwork greatly improved our project management, technical problem-solving, and communication skills.
+
+### Future Improvements
+
+* **Expand command set and AI interactions** to make the robot more versatile and intelligent.
+* **Add more sensors** (e.g., cameras, sound, or light sensors) for richer environmental awareness.
+* **Enhance power management**, such as adding low battery alerts or automated charging.
+* **Develop a mobile app** for remote control and additional user feedback.
+* **Improve code modularity and documentation** for easier future development and open-source contribution.
+
+This project provided us with valuable hands-on experience in embedded system design, cloud AI integration, and teamwork. We believe it lays a solid foundation for more advanced IoT and robotics projects in the future.
+
+---

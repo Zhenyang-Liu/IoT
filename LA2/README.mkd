@@ -2,7 +2,7 @@
 # EspBotX (Voice-Controlled Robot)
 | Front | Right | Top |
 |:----:|:----:|:----:|
-|![image of EspBotX-front](LA2/images/bot-front.JPG) | ![image of EspBotX-right](LA2/images/bot-right.JPG) | ![image of EspBotX-top](LA2/images/bot-top.JPG) |
+|![image of EspBotX-front](images/bot-front.JPG) | ![image of EspBotX-right](images/bot-right.JPG) | ![image of EspBotX-top](images/bot-top.JPG) |
 
 ## Video Demo
 [Demo Video](https://drive.google.com/file/d/1ucXCENYtiv_xMhdJu5rsJl6wOuxaBCA3/view?usp=sharing)
@@ -56,7 +56,7 @@ This project highlights several key IoT features:
 ### 2.1 System Architecture Diagram
 
 The overall hardware structure of the intelligent voice-controlled robot pet is shown below:
-![System Hardware Architecture](LA2/images/HardwareArchitectureDiagram.png)
+![System Hardware Architecture](images/HardwareArchitectureDiagram.png)
 *Figure: System hardware block diagram*
 
 > *Note: The diagram illustrates the interconnections between the ESP32-S3-BOX-3B main controller, motor drive platform, sensors, audio I/O, and power system. 
@@ -92,11 +92,11 @@ The overall hardware structure of the intelligent voice-controlled robot pet is 
 
 * **TB6612 Driver**
   The TB6612 motor driver allows for compact, reliable control of four motors simultaneously, supporting smooth movement and exploration.
-<img src="LA2/images/tb6612.jpg" alt="tb6612 image" width="200" />
+<img src="images/tb6612.jpg" alt="tb6612 image" width="200" />
 
 * **N20 Geared Motors based platform**
   N20 motors provide precise, low-speed torque suitable for small robots. 
-<img src="LA2/images/Motors.jpg" alt="move platform image" width="200" />
+<img src="images/Motors.jpg" alt="move platform image" width="200" />
 
 * **HC-SR04 Ultrasonic Sensor**
   Selected for its accuracy and ease of integration for obstacle detection, enabling reliable avoidance of objects in the robot’s path.
@@ -105,7 +105,7 @@ The overall hardware structure of the intelligent voice-controlled robot pet is 
 - **Accuracy**: ±3mm
 - **Update Rate**: 5Hz during motion
 - **Threshold**: 5cm default (configurable)
-<img src="LA2/images/SR-04.png" alt="SR-04 image" width="200" />
+<img src="images/SR-04.png" alt="SR-04 image" width="200" />
 
 * **TCRT5000 Infrared Sensor**
   Compact and responsive, ideal for cliff/edge detection to prevent the robot from accidental drops.
@@ -114,7 +114,7 @@ The overall hardware structure of the intelligent voice-controlled robot pet is 
 - **Detection**: Surface reflection measurement
 - **Response Time**: <50ms
 - **Debounce**: 3-sample confirmation to prevent false triggers
-<img src="LA2/images/TCRT5000.jpg" alt="TCRT5000 image" width="200" />
+<img src="images/TCRT5000.jpg" alt="TCRT5000 image" width="200" />
 
 * **DHT11 Temperature and Humidity Sensor**
   Simple and sufficient for basic environmental monitoring in educational and demonstration settings.
@@ -123,7 +123,7 @@ The overall hardware structure of the intelligent voice-controlled robot pet is 
 - **Humidity Range**: 20-90% RH (±5% accuracy)
 - **Update Rate**: On-demand via voice command
 - **Protocol**: Single-wire digital interface
-<img src="LA2/images/DHT11.png" alt="DHT11 image" width="200" />
+<img src="images/DHT11.png" alt="DHT11 image" width="200" />
 
 * **12V 2550mAh Li-ion Battery**
   Provides ample power for motors and control board, ensuring long operation time.
@@ -290,7 +290,7 @@ The overall hardware structure of the intelligent voice-controlled robot pet is 
 
 **(A) Voice Command Processing Flow**
 
-![Voice Command Processing Flow](LA2/images/VoiceInteractionFlow.png)
+![Voice Command Processing Flow](images/VoiceInteractionFlow.png)
 
 **(B) Obstacle Avoidance Logic**
 
